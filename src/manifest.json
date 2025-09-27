@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Link Guardian - Phishing Protection",
+  "version": "1.0",
+  "description": "Prevents accidental clicks on links in Gmail by showing destination before navigation",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ]
+}
