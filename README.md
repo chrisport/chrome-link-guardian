@@ -17,7 +17,7 @@ Simply download the extension from the Chrome Web Store
 ## Development
 
 1. Clone the repository
-2. Open Chrome and navigate to chrome://extensions/
+2. Open Chrome and navigate to [chrome://extensions/](chrome://extensions/)
 3. Enable Developer mode
 4. Click on Load unpacked and select the folder where you saved the extension
 
