@@ -1,10 +1,10 @@
-# Experiment: Anti Phishing chrome extension
+# Experiment: Anti Phishing Gmail chrome extension
 
 No guarantees, this is experimental and generated using AI.
 
 ## Description
 
-This chrome extension will warn you when a suspicious link is clicked. 
+This chrome extension will warn you when a suspicious link is clicked within Gmail.
 By default any link is considered suspicious that leads away from the current hostname.
 Hostnames and subdomains that you know, can be allowlisted to avoid over-alerting.
 
