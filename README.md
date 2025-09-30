@@ -1,6 +1,6 @@
 # Experiment: Anti Phishing Gmail chrome extension
 
-No guarantees, this is experimental and generated using AI.
+No guarantees, this is experimental, in big aprts generated using AI, reviewed and modified by a human.
 
 ## Description
 
