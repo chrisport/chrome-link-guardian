@@ -17,68 +17,29 @@ function openlink(element, event, url) {
     // Storage key for fallbacks
     const STORAGE_KEY = 'linkGuardianAllowlist';
 
-    // Try to load allowlist from chrome.storage (sync), fall back to localStorage
+    // Try to load allowlist from chrome.storage (sync)
     function loadAllowlist() {
         // If chrome.storage is available (extension context)
         if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.sync) {
-            try {
-                chrome.storage.sync.get([STORAGE_KEY], (result) => {
-                    if (chrome.runtime.lastError) {
-                        // fallback to localStorage on error
-                        loadAllowlistFromLocalStorage();
-                        return;
-                    }
-                    const arr = result[STORAGE_KEY];
-                    if (Array.isArray(arr)) {
-                        allowlistSet = new Set([...DEFAULT_ALLOWLIST, ...arr]);
-                    } else {
-                        allowlistSet = new Set(DEFAULT_ALLOWLIST);
-                    }
-                });
-                return;
-            } catch (e) {
-                // fallthrough to localStorage fallback
-            }
-        }
-
-        loadAllowlistFromLocalStorage();
-    }
-
-    function loadAllowlistFromLocalStorage() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            if (raw) {
-                const arr = JSON.parse(raw);
+            chrome.storage.sync.get([STORAGE_KEY], (result) => {
+                const arr = result[STORAGE_KEY];
                 if (Array.isArray(arr)) {
-                    allowlistSet = new Set([...DEFAULT_ALLOWLIST, ...arr]);
-                    return;
+                    allowlistSet = new Set([...arr]);
+                } else {
+                    allowlistSet = new Set();
                 }
-            }
-        } catch (e) {
-            // ignore parse errors
+            });
         }
-        allowlistSet = new Set(DEFAULT_ALLOWLIST);
     }
 
     // Persist allowlist entries (only the user-added ones) to storage
     function saveAllowlist(userAddedArray) {
         if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.sync) {
-            try {
-                const payload = {};
-                payload[STORAGE_KEY] = userAddedArray;
-                chrome.storage.sync.set(payload, () => {
-                    // ignore errors; runtime.lastError would indicate issues
-                });
-                return;
-            } catch (e) {
-                // fall through to localStorage
-            }
-        }
-
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(userAddedArray));
-        } catch (e) {
-            // ignore localStorage errors
+            const payload = {};
+            payload[STORAGE_KEY] = userAddedArray;
+            chrome.storage.sync.set(payload, () => {
+                // ignore errors; runtime.lastError would indicate issues
+            });
         }
     }
 
@@ -112,25 +73,10 @@ function openlink(element, event, url) {
                         allowlistSet.add(hostname);
                     }
                 });
-                return;
             } catch (e) {
-                // fall through to localStorage flow
             }
         }
 
-        // LocalStorage flow
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            const arr = raw ? JSON.parse(raw) : [];
-            if (!arr.includes(hostname)) {
-                arr.push(hostname);
-                saveAllowlist(arr);
-                allowlistSet.add(hostname);
-            }
-        } catch (e) {
-            // ignore
-            allowlistSet.add(hostname);
-        }
     }
 
     // Function to extract hostname from URL
@@ -294,7 +240,7 @@ function openlink(element, event, url) {
                 chrome.storage.onChanged.addListener((changes, area) => {
                     if ((area === 'sync' || area === 'local') && changes[STORAGE_KEY]) {
                         const newArr = Array.isArray(changes[STORAGE_KEY].newValue) ? changes[STORAGE_KEY].newValue : [];
-                        allowlistSet = new Set([...DEFAULT_ALLOWLIST, ...newArr]);
+                        allowlistSet = new Set([...newArr]);
                     }
                 });
             } catch (e) {
