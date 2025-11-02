@@ -11,15 +11,17 @@ Hostnames and subdomains that you know, can be allowlisted to avoid over-alertin
 After an initial phase of adding your allowlisted hostnames, the extension warning will be effective in alerting on any new hostname and therefore reduce the risk of falling for a phishing attack.
 
 ## Usage
-
-Simply download the extension from the Chrome Web Store
-
-## Development
-
 1. Clone the repository
 2. Open Chrome and navigate to [chrome://extensions/](chrome://extensions/)
 3. Enable Developer mode
 4. Click on Load unpacked and select the folder where you saved the extension
+
+When clicking links in gmail, it will now show the pop up:
+![Popup when link is clicked](/img/popup.jpeg)
+
+The extension view shows the list of allowed domains. Custom allowed domains can be removed again.
+![Popup when link is clicked](/img/settings.jpeg)
+
 
 ## Disclaimer
 
