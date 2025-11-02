@@ -16,11 +16,11 @@ After an initial phase of adding your allowlisted hostnames, the extension warni
 3. Enable Developer mode
 4. Click on Load unpacked and select the folder where you saved the extension
 
-When clicking links in gmail, it will now show the pop up:
-![Popup when link is clicked](/img/popup.jpeg)
+When clicking links in gmail, it will now show the pop up:   
+<img src="img/popup.jpeg" alt="Popup when link is clicked" style="width:200px;"/>
 
-The extension view shows the list of allowed domains. Custom allowed domains can be removed again.
-![Popup when link is clicked](/img/settings.jpeg)
+The extension view shows the list of allowed domains. Custom allowed domains can be removed again.   
+<img src="img/settings.jpeg" alt="plugins settings view" style="width:200px;"/>
 
 
 ## Disclaimer
